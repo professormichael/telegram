@@ -2,6 +2,10 @@
 body {
     margin: 0;
     padding: 0;
+    display: grid;
+    place-content: center;
+    place-items: center;
+    height: 100%;
     font-family: Arial, sans-serif;
     background-image: url("747m.gif");
     background-repeat: no-repeat;
