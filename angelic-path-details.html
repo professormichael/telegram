@@ -3,7 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <link href="horoscope1.css" rel="stylesheet" type="text/css">
+    <link href="pogression.css" rel="stylesheet" type="text/css">
+    <link href="page.css" type="text/css" rel="stylesheet"/>
     <title>Angel Calculator</title>
+    <link  >
   <style>
     body{
       background-color: black;
@@ -30,8 +33,24 @@
 </head>
 
 <body style="background-color: black">
-    
-    <main>
+    <div class="div" id="div">
+        <div class="heading" style="margin-bottom: 0; color: white; display: grid; place-content: center; place-items: center;">Angel Readings</div>
+        <div class="overlay" style="display: none;" id="overlay">
+            <div>
+                <div class="progress-container">
+                    <div id="progress-bar" class="progress-bar"></div>
+                </div>
+                <div id="progress-text" class="progress-text"></div>
+            </div>
+        
+        
+        </div>
+        <div class="content">
+            <div class="typewriter" id="typewriter-text"></div>
+        </div>
+        <button class="action-button" id="button2">Start Your Reading</button>
+    </div>
+    <main id="main" style="display: none;">
 
 
         <div class="form-container">
@@ -44,12 +63,43 @@
             <input type="date" id="dob" placeholder="DOB EX 17, June 1997" required class="input-field" />
             <label for="dob" class="input-label">Enter Your Zodiac Sign</label>
             <input type="text" id="zodiac"   placeholder="Enter Your Zodiac Sign EX(Gemini)" required class="input-field" />
-
-            <button class="submit-button" id="button">Submit</button>
+            <a  id='redirect' style="margin-bottom:15px; padding-bottom:10px; font-size: 15px; color: red; cursor: pointer;" >Do You Not Know Your Sun Sign/Zodiac Sign Click Here To Know</a>
+            
+            <button class="submit-button" style="margin-top: 20px;" id="button">Submit</button>
         </div>
     </main>
-
+    <script src="page.js">
+        
+    </script>
+    <script src="progression.js">
+        
+    </script>
     <script >
+        let req = false;
+        const redirect = document.getElementById('redirect');
+        redirect.addEventListener('click',function(){
+            window.location.href ="Horoscope%20New%20Line.html";
+            localStorage.setItem('req1', JSON.stringify('true'))
+        })
+        document.addEventListener('DOMContentLoaded', function(){
+            if(JSON.parse(localStorage.getItem('req2')) === 'true'){
+            req = JSON.parse(window.localStorage.getItem('Req'));
+            let name1 = JSON.parse(window.localStorage.getItem('name'));
+            let dob1 = JSON.parse(window.localStorage.getItem('dob'));
+            
+            document.getElementById('zodiac').value = req;
+            document.getElementById('fullName').value = name1;
+            document.getElementById('dob').value = dob1;
+            localStorage.removeItem('req2');
+            localStorage.removeItem('Req');
+            localStorage.removeItem('name')
+            localStorage.removeItem('dob')
+            document.getElementById('div').style.display = 'none';
+            document.getElementById('main').style.display = 'grid'
+        }
+        })
+        
+        
         document.getElementById('button').addEventListener('click',function (){
             const dob = document.getElementById('dob').value;
             const zodiac1 = document.getElementById('zodiac').value;
@@ -64,13 +114,9 @@
 
             }
             const doba = dob.replace('-', '+')
-            //console.log(doba)
-            console.log(zodiac)
             const final = eval(doba.replace('-', '+'))
             const array = Array.from(String(final) , Number)
-            console.log(array)
             const array2 = array[0]+array[1]+array[2]+array[3]
-            console.log(array2)
             if(array2>9){
                 const array3 = Array.from(String(array2) , Number)
                 arrayfinal = array3[0] +array3[1]
